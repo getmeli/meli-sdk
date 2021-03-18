@@ -1,0 +1,32 @@
+{
+  "name": "@getmeli/sdk",
+  "version": "1.0.0",
+  "description": "Meli SDK",
+  "scripts": {
+    "start": "rimraf build && webpack --mode=development --watch",
+    "build": "rimraf build && webpack --mode=production",
+    "test": "jest --runInBand --coverage --no-cache"
+  },
+  "keywords": [],
+  "author": "Meli",
+  "license": "ISC",
+  "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@types/jest": "^26.0.8",
+    "jest": "^26.2.2",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^17.4.2",
+    "semantic-release-license": "^1.0.2",
+    "terser-webpack-plugin": "^5.1.1",
+    "ts-jest": "^26.1.4",
+    "ts-loader": "^8.0.18",
+    "typescript": "^4.2.3",
+    "webpack": "^5.26.3",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "core-js": "^3.9.1"
+  }
+}

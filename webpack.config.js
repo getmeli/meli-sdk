@@ -1,0 +1,61 @@
+const path = require('path');
+const webpack = require('webpack');
+
+const TerserPlugin = require('terser-webpack-plugin');
+
+const buildInfo = {
+  version: require('./package.json').version,
+  buildDate: new Date().toISOString(),
+  commitHash: require('child_process')
+    .execSync('git rev-parse HEAD')
+    .toString()
+    .trim(),
+};
+
+const definedVariables = {
+  BUILD_INFO: JSON.stringify(buildInfo),
+  SENTRY_RELEASE: JSON.stringify(process.env.SENTRY_RELEASE),
+  SENTRY_DSN: JSON.stringify(process.env.SENTRY_DSN),
+};
+
+console.log('definedVariables', definedVariables);
+
+// https://webpack.js.org/guides/typescript/
+module.exports = {
+  target: 'web',
+  entry: './src/index.ts',
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    filename: 'index.js',
+    devtoolModuleFilenameTemplate: '../[resource-path]',
+  },
+  mode: 'production',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  devtool: 'source-map',
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        //sourceMap: true,
+        extractComments: false,
+        terserOptions: {
+          ecma: 5,
+        },
+      }),
+    ],
+  },
+  plugins: [
+    new webpack.DefinePlugin(definedVariables),
+  ],
+};
