@@ -5,6 +5,13 @@ export class Form {
 
   private listener?: EventListenerOrEventListenerObject;
 
+  public on?: (
+    event: 'error' | 'submitted' | 'removed',
+    data?,
+  ) => void = () => {
+
+  };
+
   get name() {
     return this.form.getAttribute(FORM_NAME_KEY);
   }
@@ -26,10 +33,10 @@ export class Form {
       captcha.instance.getToken()
         .then(token => this.submit(token))
         .then(() => {
-          console.log('submit success');
+          this.on('submitted');
         })
         .catch(err => {
-          console.error('failed to submit form', err);
+          this.on('error', err);
         });
     };
 
@@ -57,5 +64,7 @@ export class Form {
 
     this.form.removeEventListener('submit', this.listener);
     this.listener = undefined;
+
+    this.on('removed');
   };
 }

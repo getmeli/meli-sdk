@@ -1,7 +1,7 @@
-import 'core-js/features/promise';
 import { FORM_NAME_KEY } from './constants';
 import { Form } from './form';
 import { initCaptcha } from './captcha/captcha';
+import { initEnv } from '../env';
 
 function detectForms() {
   return Array
@@ -10,6 +10,7 @@ function detectForms() {
 }
 
 async function init(forms: HTMLFormElement[] = detectForms()) {
+  await initEnv();
   await initCaptcha();
   return forms.map(form => new Form(form));
 }

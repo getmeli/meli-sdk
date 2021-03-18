@@ -4,10 +4,18 @@ interface Env {
 
 export const env: Env = {};
 
+let initialized: Promise<void>;
+
 export async function initEnv() {
-  const response = await fetch('/-/env');
-  if (response.status !== 200) {
-    throw response;
+  if (initialized) {
+    return initialized;
   }
-  return response.json();
+
+  initialized = (async () => {
+    const response = await fetch('/-/env');
+    if (response.status !== 200) {
+      throw response;
+    }
+    return response.json();
+  })();
 }

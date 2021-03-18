@@ -14,8 +14,6 @@ const buildInfo = {
 
 const definedVariables = {
   BUILD_INFO: JSON.stringify(buildInfo),
-  SENTRY_RELEASE: JSON.stringify(process.env.SENTRY_RELEASE),
-  SENTRY_DSN: JSON.stringify(process.env.SENTRY_DSN),
 };
 
 console.log('definedVariables', definedVariables);
@@ -23,10 +21,13 @@ console.log('definedVariables', definedVariables);
 // https://webpack.js.org/guides/typescript/
 module.exports = {
   target: 'web',
-  entry: './src/index.ts',
+  entry: {
+    'index': './src/index.ts',
+    'browser': './src/browser.ts',
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'index.js',
+    filename: '[name].js',
     devtoolModuleFilenameTemplate: '../[resource-path]',
   },
   mode: 'production',

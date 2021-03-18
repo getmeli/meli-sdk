@@ -27,7 +27,7 @@ yarn-error.log*
 
 dist
 build
-tmp
+examples
 tmp.*
 data
 *.iml
