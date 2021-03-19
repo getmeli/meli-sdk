@@ -20,7 +20,7 @@ Create an HTML form:
 <html>
 <head>
     <!-- ... other scripts -->
-    <script async src="https://unpkg.com/@getmeli/sdk@^1/browser.js"></script>
+    <script async src="https://unpkg.com/@getmeli/sdk@^1/build/browser.js"></script>
 </head>
 <body>
 
@@ -41,7 +41,7 @@ By default, the lib will automatically load and look for forms with the `data-fo
 
 ```html
 
-<script src="https://unpkg.com/@getmeli/sdk@latest/browser.js" data-meli-init="false"></script>
+<script ... data-meli-init="false"></script>
 <script>
     Meli.Forms.init().catch(console.error);
 </script>
