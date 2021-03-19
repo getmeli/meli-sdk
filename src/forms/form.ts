@@ -1,12 +1,19 @@
 import { FORM_NAME_KEY } from './constants';
 import { captcha } from './captcha/captcha';
 import { EventEmitter } from '../commons/event-emitter';
+import Debug from 'debug';
+
+const debug = Debug('forms:form');
 
 export class Form extends EventEmitter {
   private listener?: EventListenerOrEventListenerObject;
 
   get name() {
     return this.form.getAttribute(FORM_NAME_KEY);
+  }
+
+  debug(...args) {
+    debug(this.name, ...args);
   }
 
   constructor(
@@ -21,23 +28,34 @@ export class Form extends EventEmitter {
       throw new Error(`Form is missing a ${FORM_NAME_KEY} attribute`);
     }
 
+    this.debug('bootstraping form', this.name);
+
     this.listener = event => {
       event.preventDefault();
 
+      this.debug('submit listener called, getting token', this.name);
       captcha.instance.getToken()
-        .then(token => this.submit(token))
+        .then(token => {
+          this.debug('got captcha token', token, 'now submitting');
+          return this.submit(token);
+        })
         .then(() => {
+          this.debug('submitted successfully');
           this.emit('submitted');
         })
         .catch(err => {
+          this.debug('submit error', err);
           this.on('error', err);
         });
     };
 
     this.form.addEventListener('submit', this.listener);
+
+    this.emit('init');
   }
 
   async submit(token): Promise<void> {
+    this.debug('submitting; token=', token);
     try {
       const data = new FormData(this.form);
       const response = await fetch(`/-/forms/${this.name}`, {
@@ -48,11 +66,11 @@ export class Form extends EventEmitter {
         body: data,
       });
       if (response.status !== 204) {
+        this.debug('response status is not 204, throwing error');
         throw response;
       }
-      this.emit('submitted');
     } catch (e) {
-      this.emit('error', e);
+      this.debug('catching error, emitting event and re-submitting');
       throw e;
     }
   }
@@ -66,5 +84,10 @@ export class Form extends EventEmitter {
     this.listener = undefined;
 
     this.emit('removed');
+  }
+
+  emit(event: string, data?: any) {
+    super.emit(event, data);
+    this.form.dispatchEvent(new CustomEvent(event, { detail: data }));
   }
 }
