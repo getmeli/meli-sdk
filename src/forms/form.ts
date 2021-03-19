@@ -28,17 +28,13 @@ export class Form extends EventEmitter {
       throw new Error(`Form is missing a ${FORM_NAME_KEY} attribute`);
     }
 
-    this.debug('bootstraping form', this.name);
+    this.debug('bootstraping form');
 
     this.listener = event => {
       event.preventDefault();
 
-      this.debug('submit listener called, getting token', this.name);
-      captcha.instance.getToken()
-        .then(token => {
-          this.debug('got captcha token', token, 'now submitting');
-          return this.submit(token);
-        })
+      this.debug('submit listener called');
+      this.submit()
         .then(() => {
           this.debug('submitted successfully');
           this.emit('submitted');
@@ -54,9 +50,11 @@ export class Form extends EventEmitter {
     this.emit('init');
   }
 
-  async submit(token): Promise<void> {
-    this.debug('submitting; token=', token);
+  async submit(): Promise<void> {
+    this.debug('submitting');
+    this.emit('submitting');
     try {
+      const token = await captcha.instance.getToken();
       const data = new FormData(this.form);
       const response = await fetch(`/-/forms/${this.name}`, {
         method: 'post',

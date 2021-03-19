@@ -108,14 +108,8 @@ On the HTML form element:
 
 ```js
 const formElement = document.getElementById('my-form');
-formElement.addEventListener('init', () => {
-    console.log('init');
-});
 formElement.addEventListener('submitted', () => {
     console.log('submitted');
-});
-formElement.addEventListener('error', err => {
-    console.log('error', err);
 });
 ```
 
@@ -127,18 +121,18 @@ Meli.Forms
     .then(() => {
         const formElement = document.getElementById('my-form');
         const form = new Meli.Forms.Form(form);
-        form.addEventListener('init', () => {
-            console.log('init');
-        });
         form.addEventListener('submitted', () => {
             console.log('submitted');
-        });
-        form.addEventListener('error', err => {
-            console.log('error', err);
         });
     })
     .catch(console.error);
 ```
+
+| Event | Callback signature | Description |
+|----|----|----|
+| `submitting` | `() => void` | The form submit callback was called. |
+| `submitted` | `() => void` | The form was submitted successfully. |
+| `error` | `(error) => void` | Something went wrong. |
 
 ## Development
 
