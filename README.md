@@ -6,7 +6,7 @@
 
 Place a `.meli.yml` at your site root:
 
-```
+```yaml
 forms:
     form1:
         type: email
