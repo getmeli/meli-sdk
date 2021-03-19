@@ -1,3 +1,10 @@
+# [1.0.0-next.4](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.3...v1.0.0-next.4) (2021-03-19)
+
+
+### Bug Fixes
+
+* missing negation ([274c2ab](https://github.com/getmeli/meli-sdk/commit/274c2ab103c6d5b30e3b9a72beb153619273d1fe))
+
 # [1.0.0-next.3](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.2...v1.0.0-next.3) (2021-03-19)
 
 
