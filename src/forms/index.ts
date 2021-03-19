@@ -15,7 +15,7 @@ async function init(forms: HTMLFormElement[] = detectForms()) {
   return forms.map(form => new Form(form));
 }
 
-export const Forms = {
+export default {
   Form,
   init,
 };

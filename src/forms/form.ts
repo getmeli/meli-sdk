@@ -1,16 +1,10 @@
 import { FORM_NAME_KEY } from './constants';
 import { captcha } from './captcha/captcha';
+import { EventEmitter } from './event-emitter';
 
-export class Form {
+export class Form extends EventEmitter {
 
   private listener?: EventListenerOrEventListenerObject;
-
-  public on?: (
-    event: 'error' | 'submitted' | 'removed',
-    data?,
-  ) => void = () => {
-
-  };
 
   get name() {
     return this.form.getAttribute(FORM_NAME_KEY);
@@ -19,6 +13,7 @@ export class Form {
   constructor(
     private readonly form: HTMLFormElement,
   ) {
+    super();
     this.bootstrap();
   }
 
@@ -33,7 +28,7 @@ export class Form {
       captcha.instance.getToken()
         .then(token => this.submit(token))
         .then(() => {
-          this.on('submitted');
+          this.emit('submitted');
         })
         .catch(err => {
           this.on('error', err);
@@ -44,16 +39,22 @@ export class Form {
   }
 
   async submit(token): Promise<void> {
-    const data = new FormData(this.form);
-    const response = await fetch(`/-/forms/${this.name}`, {
-      method: 'post',
-      headers: {
-        'Token': token,
-      },
-      body: data,
-    });
-    if (response.status !== 204) {
-      throw response;
+    try {
+      const data = new FormData(this.form);
+      const response = await fetch(`/-/forms/${this.name}`, {
+        method: 'post',
+        headers: {
+          'Token': token,
+        },
+        body: data,
+      });
+      if (response.status !== 204) {
+        throw response;
+      }
+      this.emit('submitted');
+    } catch (e) {
+      this.emit('error', e);
+      throw e;
     }
   }
 
@@ -65,6 +66,6 @@ export class Form {
     this.form.removeEventListener('submit', this.listener);
     this.listener = undefined;
 
-    this.on('removed');
+    this.emit('removed');
   };
 }

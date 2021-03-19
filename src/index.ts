@@ -1,5 +1,5 @@
-import { Forms } from './forms';
+import Forms from './forms';
 
-module.exports = {
+export default {
   Forms,
 };
