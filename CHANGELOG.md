@@ -1,3 +1,11 @@
+# [1.0.0-next.6](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.5...v1.0.0-next.6) (2021-03-19)
+
+
+### Features
+
+* add debug logs and form events ([3e00300](https://github.com/getmeli/meli-sdk/commit/3e003000f13e37f34c3da8afc8ed8fa5d1b53e1b))
+* wait for document ready ([d0d2763](https://github.com/getmeli/meli-sdk/commit/d0d2763320adb9b9e1b1a6afa6c7916e032329b3))
+
 # [1.0.0-next.5](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.4...v1.0.0-next.5) (2021-03-19)
 
 
