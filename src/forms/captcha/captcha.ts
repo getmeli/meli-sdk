@@ -15,6 +15,15 @@ export function initCaptcha() {
   }
 
   if (captcha.instance) {
-    return captcha.instance.bind();
+    captcha.instance = {
+      async bind(): Promise<any> {
+
+      },
+      async getToken(): Promise<any> {
+        return undefined;
+      },
+    }
   }
+
+  return captcha.instance.bind();
 }
