@@ -1,3 +1,10 @@
+# [1.0.0-next.2](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.1...v1.0.0-next.2) (2021-03-19)
+
+
+### Bug Fixes
+
+* missing npm release script ([25c4d50](https://github.com/getmeli/meli-sdk/commit/25c4d5015ee06f7356bc1b33fbbe6d1bb5db6fb0))
+
 # 1.0.0-next.1 (2021-03-19)
 
 
