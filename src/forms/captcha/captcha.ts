@@ -16,13 +16,14 @@ export function initCaptcha() {
 
   if (captcha.instance) {
     captcha.instance = {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       async bind(): Promise<any> {
 
       },
       async getToken(): Promise<any> {
         return undefined;
       },
-    }
+    };
   }
 
   return captcha.instance.bind();
