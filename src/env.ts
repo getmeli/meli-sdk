@@ -11,11 +11,18 @@ export async function initEnv() {
     return initialized;
   }
 
-  initialized = (async () => {
-    const response = await fetch('/-/env');
-    if (response.status !== 200) {
-      throw response;
-    }
-    return response.json();
-  })();
+  initialized = fetch('/-/env')
+    .then(response => {
+      if (response.status !== 200) {
+        throw response;
+      }
+      return response.json();
+    })
+    .then(json => {
+      Object.entries(json).forEach(([key, val]) => {
+        env[key] = val;
+      });
+    });
+
+  return initialized;
 }
