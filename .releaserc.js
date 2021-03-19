@@ -1,16 +1,14 @@
 module.exports = {
   branches: [
     { name: 'latest' },
-    {
-      name: 'next',
-      prerelease: true,
-    },
+    { name: 'next', prerelease: true },
   ],
   plugins: [
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',
     '@semantic-release/changelog',
     'semantic-release-license',
+    '@semantic-release/npm',
     '@semantic-release/github',
     [
       '@semantic-release/git',
