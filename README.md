@@ -30,6 +30,13 @@ Create an HTML form:
     <button type="submit">Submit</button>
 </form>
 
+<script>
+    const formElement = document.getElementById('my-form');
+    formElement.addEventListener('submitted', () => {
+        console.log('submitted');
+    });
+</script>
+
 </body>
 </html>
 ```
@@ -46,8 +53,6 @@ By default, the lib will automatically load and look for forms with the `data-fo
     Meli.Forms.init().catch(console.error);
 </script>
 ```
-
-In this case, you will need to initialize
 
 ### Using Npm
 
@@ -81,7 +86,7 @@ Manually create a form and bind it:
 
 ```js
 Meli.Forms
-    .init([])
+    .init([]) // passing the empty array cancels the auto detection
     .then(() => {
         const formElement = document.getElementById('my-form');
         const form = new Meli.Forms.Form(form);
@@ -95,6 +100,44 @@ To remove all listeners:
 // ...
 const form = new Meli.Forms.Form(form);
 forms.remove();
+```
+
+### Events
+
+On the HTML form element:
+
+```js
+const formElement = document.getElementById('my-form');
+formElement.addEventListener('init', () => {
+    console.log('init');
+});
+formElement.addEventListener('submitted', () => {
+    console.log('submitted');
+});
+formElement.addEventListener('error', err => {
+    console.log('error', err);
+});
+```
+
+Or on the `Form` object:
+
+```js
+Meli.Forms
+    .init([])
+    .then(() => {
+        const formElement = document.getElementById('my-form');
+        const form = new Meli.Forms.Form(form);
+        form.addEventListener('init', () => {
+            console.log('init');
+        });
+        form.addEventListener('submitted', () => {
+            console.log('submitted');
+        });
+        form.addEventListener('error', err => {
+            console.log('error', err);
+        });
+    })
+    .catch(console.error);
 ```
 
 ## Development

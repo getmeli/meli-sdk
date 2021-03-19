@@ -12,14 +12,43 @@ function detectForms() {
     .filter(form => form.hasAttribute(FORM_NAME_KEY));
 }
 
-async function init(forms: HTMLFormElement[] = detectForms()) {
-  debug('initializing forms', detectForms());
+function documentReady() {
+  if (!document) {
+    debug('no document, returning');
+    return;
+  }
+  debug('waiting for document to be ready');
+  return new Promise<void>(resolve => {
+    // in case the document is already rendered
+    if (document.readyState !== 'loading') {
+      resolve();
+    } else if (document.addEventListener) { // modern browsers
+      document.addEventListener('DOMContentLoaded', () => resolve());
+    } else { // IE <= 8
+      (document as any).attachEvent('onreadystatechange', () => {
+        if (document.readyState === 'complete') {
+          resolve();
+        }
+      });
+    }
+  });
+}
+
+async function init(forms?: HTMLFormElement[]): Promise<Form[]> {
+  debug('initializing forms', forms);
 
   await initEnv();
   await initCaptcha();
 
-  debug('binding forms', forms);
-  return forms.map(form => new Form(form));
+  let formsToBind = forms;
+
+  if (!forms) {
+    await documentReady();
+    formsToBind = detectForms();
+  }
+
+  debug('binding forms', formsToBind);
+  return formsToBind.map(form => new Form(form));
 }
 
 export default {

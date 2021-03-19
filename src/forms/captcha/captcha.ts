@@ -21,7 +21,9 @@ export function initCaptcha() {
   }
 
   if (!captcha.instance) {
+    // eslint-disable-next-line no-console
     console.warn('Captcha is disabled');
+
     captcha.instance = {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       async bind(): Promise<any> {
