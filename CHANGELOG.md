@@ -1,3 +1,10 @@
+# [1.0.0-next.3](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.2...v1.0.0-next.3) (2021-03-19)
+
+
+### Bug Fixes
+
+* cannot get captcha token when captcha disabled ([d0967e1](https://github.com/getmeli/meli-sdk/commit/d0967e14ad56cce58ff84479d40373b8a75f02b5))
+
 # [1.0.0-next.2](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.1...v1.0.0-next.2) (2021-03-19)
 
 
