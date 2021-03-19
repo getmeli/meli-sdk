@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 const TerserPlugin = require('terser-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const buildInfo = {
   version: require('./package.json').version,
@@ -58,5 +59,9 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin(definedVariables),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false,
+    }),
   ],
 };

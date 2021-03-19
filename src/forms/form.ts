@@ -1,6 +1,6 @@
 import { FORM_NAME_KEY } from './constants';
 import { captcha } from './captcha/captcha';
-import { EventEmitter } from './event-emitter';
+import { EventEmitter } from '../commons/event-emitter';
 
 export class Form extends EventEmitter {
   private listener?: EventListenerOrEventListenerObject;

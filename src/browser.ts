@@ -1,4 +1,3 @@
-import 'core-js/features/promise';
 import Forms from './forms';
 
 const Meli = {
