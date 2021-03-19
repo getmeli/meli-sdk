@@ -14,7 +14,7 @@ export function initCaptcha() {
     captcha.instance = new GoogleRecaptchaV3(env.GOOGLE_RECAPTCHA_SITE_KEY);
   }
 
-  if (captcha.instance) {
+  if (!captcha.instance) {
     captcha.instance = {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       async bind(): Promise<any> {
