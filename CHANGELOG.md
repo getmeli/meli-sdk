@@ -1,3 +1,10 @@
+# [1.0.0-next.5](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.4...v1.0.0-next.5) (2021-03-19)
+
+
+### Bug Fixes
+
+* env not awaited for ([ede4fef](https://github.com/getmeli/meli-sdk/commit/ede4fefc43898c8dcc4e653d9db0c47e4869b12f))
+
 # [1.0.0-next.4](https://github.com/getmeli/meli-sdk/compare/v1.0.0-next.3...v1.0.0-next.4) (2021-03-19)
 
 
