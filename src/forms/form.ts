@@ -3,7 +3,6 @@ import { captcha } from './captcha/captcha';
 import { EventEmitter } from './event-emitter';
 
 export class Form extends EventEmitter {
-
   private listener?: EventListenerOrEventListenerObject;
 
   get name() {
@@ -44,7 +43,7 @@ export class Form extends EventEmitter {
       const response = await fetch(`/-/forms/${this.name}`, {
         method: 'post',
         headers: {
-          'Token': token,
+          Token: token,
         },
         body: data,
       });
@@ -67,5 +66,5 @@ export class Form extends EventEmitter {
     this.listener = undefined;
 
     this.emit('removed');
-  };
+  }
 }
